@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Should I Hack You?</title>
     <style>
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(-2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        
         body {
             background-color: black;
             color: lime;
@@ -17,10 +26,13 @@
             justify-content: center;
             height: 100vh;
         }
+        
         h1 {
             font-size: 2.5rem;
             text-shadow: 0 0 10px lime;
+            animation: glitch 0.2s infinite;
         }
+        
         .btn {
             background: none;
             border: 2px solid lime;
@@ -31,9 +43,22 @@
             cursor: pointer;
             transition: all 0.3s;
         }
+        
         .btn:hover {
             background-color: lime;
             color: black;
+        }
+
+        #terminal {
+            display: none;
+            background: black;
+            color: lime;
+            font-size: 1.2rem;
+            text-align: left;
+            padding: 20px;
+            height: 100vh;
+            overflow: hidden;
+            white-space: pre-line;
         }
     </style>
 </head>
@@ -41,14 +66,58 @@
     <h1>SHOULD I HACK YOU?</h1>
     <button class="btn" onclick="hacked('YES')">YES</button>
     <button class="btn" onclick="hacked('NO')">NO</button>
+
+    <div id="terminal"></div>
+    
+    <audio id="beepSound">
+        <source src="https://www.fesliyanstudios.com/play-mp3/4383" type="audio/mpeg">
+    </audio>
+
     <script>
         function hacked(choice) {
-            let message = (choice === 'YES') ? '‼️YOU HAVE BEEN HACKED BY MY HONEYBYTE AND HER BABY‼️' : '‼️YOU HAVE BEEN HACKED ANYWAY🤣🤫‼️';
+            let sound = document.getElementById("beepSound");
+            sound.play(); 
+
+            let message = (choice === 'YES') 
+                ? '‼️YOU HAVE BEEN HACKED BY MY HONEYBYTE AND HER BABY‼️' 
+                : '‼️YOU HAVE BEEN HACKED ANYWAY🤣🤫‼️';
+                
             alert(message);
-            document.body.innerHTML = '<h1>⚠️ SYSTEM BREACHED ⚠️</h1><p style="font-size:2rem; color: red;">Shutting Down...</p>';
+
+            document.body.innerHTML = '<h1 style="color:red; font-size:3rem;">⚠️ SYSTEM BREACHED ⚠️</h1><p style="font-size:2rem; color: white;">Shutting Down...</p>';
+            
             setTimeout(() => {
-                location.reload();
-            }, 4000);
+                showTerminal();
+            }, 3000);
+        }
+
+        function showTerminal() {
+            document.body.innerHTML = ''; 
+            let terminal = document.getElementById("terminal");
+            terminal.style.display = "block";
+
+            let fakeCommands = [
+                "[Initializing system breach...]",
+                "[Accessing personal data...]",
+                "[Uploading virus...]",
+                "[Encrypting files...]",
+                "[Sending data to Honeybyte's server...]",
+                "[Self-destructing system in 3... 2... 1...]"
+            ];
+
+            let i = 0;
+            function typeEffect() {
+                if (i < fakeCommands.length) {
+                    terminal.innerHTML += fakeCommands[i] + "\n";
+                    i++;
+                    setTimeout(typeEffect, 1500);
+                } else {
+                    setTimeout(() => { location.reload(); }, 4000);
+                }
+            }
+
+            document.body.appendChild(terminal);
+            typeEffect();
         }
     </script>
 </body>
