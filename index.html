@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Should I Hack You?</title>
+    <style>
+        body {
+            background-color: black;
+            color: lime;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px lime;
+        }
+        .btn {
+            background: none;
+            border: 2px solid lime;
+            color: lime;
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            margin: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background-color: lime;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>SHOULD I HACK YOU?</h1>
+    <button class="btn" onclick="hacked('YES')">YES</button>
+    <button class="btn" onclick="hacked('NO')">NO</button>
+    <script>
+        function hacked(choice) {
+            let message = (choice === 'YES') ? '‼️YOU HAVE BEEN HACKED BY MY HONEYBYTE AND HER BABY‼️' : '‼️YOU HAVE BEEN HACKED ANYWAY🤣🤫‼️';
+            alert(message);
+            document.body.innerHTML = '<h1>⚠️ SYSTEM BREACHED ⚠️</h1><p style="font-size:2rem; color: red;">Shutting Down...</p>';
+            setTimeout(() => {
+                location.reload();
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
